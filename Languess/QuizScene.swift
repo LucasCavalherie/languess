@@ -12,16 +12,18 @@ import CoreHaptics
 class QuizScene: UIViewController {
     
     var timer: Timer?
-    var countdown: Int = 30
+    var countdown: Int = 5
     var countdownLabel: UILabel!
     var currentQuestionIndex: Int = 0
     var quizData: [QuizData] = []
+    var resultData: [ResultData] = []
     var wordLabel = UILabel()
     var optionButtons: [UIButton] = []
     
     var correctQuestions: Int = 0
     var wrongQuestions: Int = 0
-
+    
+    // Ciclo de vida
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -49,7 +51,7 @@ class QuizScene: UIViewController {
         countdownLabel.text = "30" // Valor inicial do contador
         countdownLabel.font = UIFont.systemFont(ofSize: 28, weight: .thin)
         countdownLabel.textAlignment = .center
-        countdownLabel.textColor = .black
+        countdownLabel.textColor = UIColor.label
         countdownLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(countdownLabel)
         
@@ -67,7 +69,7 @@ class QuizScene: UIViewController {
         // Style
         wordLabel.font = UIFont.systemFont(ofSize: 64.0, weight: .thin)
         wordLabel.textAlignment = .center
-        wordLabel.textColor = .black
+        wordLabel.textColor = .label
         
         // Autolayout
         wordLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -80,15 +82,16 @@ class QuizScene: UIViewController {
     }
     
     func setupButtons() {
+        // add collection view diffable
         for _ in 0..<4 {
             let button = UIButton(type: .system)
             
             button.configuration?.baseBackgroundColor = .systemBackground
             button.configuration?.baseForegroundColor = .black
             button.titleLabel?.font = UIFont.systemFont(ofSize: 36.0, weight: .thin)
-            button.setTitleColor(.black, for: .normal)
+            button.setTitleColor(.label, for: .normal)
             button.layer.borderWidth = 1.0
-            button.layer.borderColor = UIColor.black.cgColor
+            button.layer.borderColor = UIColor.systemGray.cgColor
             button.layer.cornerRadius = 10.0
             
             button.addTarget(self, action: #selector(optionButtonTapped(_:)), for: .touchUpInside)
@@ -125,6 +128,7 @@ class QuizScene: UIViewController {
         let nextScreen = ResultScene()
         nextScreen.correctCount = correctQuestions
         nextScreen.wrongCount = wrongQuestions
+        nextScreen.resultData = resultData
         navigationController?.pushViewController(nextScreen, animated: true)
     }
     
@@ -152,23 +156,42 @@ class QuizScene: UIViewController {
     @objc func optionButtonTapped(_ sender: UIButton) {
         let currentQuestion = quizData[currentQuestionIndex]
         let selectedOption = sender.title(for: .normal) ?? ""
+        let correct = selectedOption == currentQuestion.correctLanguage
         
-        if selectedOption == currentQuestion.correctLanguage {
+        if correct {
             correctQuestions = correctQuestions + 1
-            sender.backgroundColor = .green
+            sender.backgroundColor = .systemGreen
+            sender.setTitleColor(.white, for: .normal)
+            sender.layer.borderColor = UIColor.systemGreen.cgColor
             
             UIImpactFeedbackGenerator(style: .light).impactOccurred()
         } else {
             wrongQuestions = wrongQuestions + 1
-            sender.backgroundColor = .red
+            sender.backgroundColor = .systemRed
+            sender.setTitleColor(.white, for: .normal)
+            sender.layer.borderColor = UIColor.systemRed.cgColor
             
             UINotificationFeedbackGenerator().notificationOccurred(.error)
         }
         
+        resultData.append(
+            ResultData(word: quizData[currentQuestionIndex].word, correct: correct)
+        )
+        
         currentQuestionIndex = currentQuestionIndex + 1
+        
+        for i in 0..<4 {
+            optionButtons[i].isEnabled = false
+        }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             sender.backgroundColor = .clear
+            sender.setTitleColor(.label, for: .normal)
+            sender.layer.borderColor = UIColor.systemGray.cgColor
+            
+            for i in 0..<4 {
+                self.optionButtons[i].isEnabled = true
+            }
             self.goToNextQuestion()
         }
     }

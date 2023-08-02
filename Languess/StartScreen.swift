@@ -31,7 +31,7 @@ class StartScreen: UIViewController {
         titleLabel.text = "Languess"
         titleLabel.font = UIFont.systemFont(ofSize: 64.0, weight: .thin)
         titleLabel.textAlignment = .center
-        titleLabel.textColor = .black
+        titleLabel.textColor = .label
         
         // Autolayout
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -53,10 +53,10 @@ class StartScreen: UIViewController {
         
         nextButton.setTitle("Jogar", for: .normal)
         nextButton.titleLabel?.font = UIFont.systemFont(ofSize: 36.0, weight: .thin)
-        nextButton.setTitleColor(.black, for: .normal)
+        nextButton.setTitleColor(.label, for: .normal)
         
         nextButton.layer.borderWidth = 1.0
-        nextButton.layer.borderColor = UIColor.black.cgColor
+        nextButton.layer.borderColor = UIColor.systemGray.cgColor
         nextButton.layer.cornerRadius = 10.0
         
         // Target
