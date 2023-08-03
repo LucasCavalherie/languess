@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7313AC442A7C1FED0071B022 /* UserDefaultObservableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7313AC432A7C1FED0071B022 /* UserDefaultObservableObject.swift */; };
 		7316C8DC2A797603000953E4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7316C8DB2A797603000953E4 /* AppDelegate.swift */; };
 		7316C8DE2A797603000953E4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7316C8DD2A797603000953E4 /* SceneDelegate.swift */; };
 		7316C8E02A797603000953E4 /* StartScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7316C8DF2A797603000953E4 /* StartScreen.swift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7313AC432A7C1FED0071B022 /* UserDefaultObservableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultObservableObject.swift; sourceTree = "<group>"; };
 		7316C8D82A797603000953E4 /* Languess.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Languess.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7316C8DB2A797603000953E4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7316C8DD2A797603000953E4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -75,6 +77,7 @@
 				7316C8E42A797604000953E4 /* Assets.xcassets */,
 				7316C8E62A797604000953E4 /* LaunchScreen.storyboard */,
 				7316C8E92A797604000953E4 /* Info.plist */,
+				7313AC432A7C1FED0071B022 /* UserDefaultObservableObject.swift */,
 			);
 			path = Languess;
 			sourceTree = "<group>";
@@ -151,6 +154,7 @@
 			files = (
 				7316C8F62A799383000953E4 /* ResultScene.swift in Sources */,
 				7316C8E02A797603000953E4 /* StartScreen.swift in Sources */,
+				7313AC442A7C1FED0071B022 /* UserDefaultObservableObject.swift in Sources */,
 				7316C8F02A797AC7000953E4 /* QuizScene.swift in Sources */,
 				7316C8F22A7983A9000953E4 /* Preview.swift in Sources */,
 				732813982A7AEA30005EEEE2 /* ResultData.swift in Sources */,

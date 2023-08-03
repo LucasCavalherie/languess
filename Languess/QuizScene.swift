@@ -12,7 +12,7 @@ import CoreHaptics
 class QuizScene: UIViewController {
     
     var timer: Timer?
-    var countdown: Int = 5
+    var countdown: Int = 15
     var countdownLabel: UILabel!
     var currentQuestionIndex: Int = 0
     var quizData: [QuizData] = []

@@ -10,6 +10,8 @@ import SwiftUI
 
 class ResultScene: UIViewController {
 
+    let firstButton = UIButton()
+    
     var totalLabel = UILabel()
     
     var correctLabel = UILabel()
@@ -18,11 +20,29 @@ class ResultScene: UIViewController {
     var wrongLabel = UILabel()
     var wrongCount: Int = 0
     
-    var resultData: [ResultData] = []
+    var resultData: [ResultData] = [
+        ResultData(word: "Palavra", correct: true),
+        ResultData(word: "Palavra1", correct: true),
+        ResultData(word: "Palavra2", correct: true),
+        ResultData(word: "Palavra3", correct: true),
+        ResultData(word: "Palavra3", correct: true),
+        ResultData(word: "Palavra3", correct: true),
+        ResultData(word: "Palavra3", correct: true),
+        ResultData(word: "Palavra3", correct: true),
+    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        let record = (UserDefaults.standard.value(forKey: "highScore") != nil) ? UserDefaults.standard.value(forKey: "highScore") as! Int : 0
+        if correctCount > record {
+            UserDefaults.standard.set(correctCount, forKey: "highScore")
+            RecordController.updateRecord(newRecord: correctCount)
+        }
+        
+        
+        setupButton()
         setupTotalQuestions()
         setupCorrectQuestions()
         setupWrongQuestions()
@@ -31,6 +51,37 @@ class ResultScene: UIViewController {
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.isNavigationBarHidden = true
+    }
+    
+    func setupButton() {
+        // Subview
+        view.addSubview(firstButton)
+        
+        // Style
+        firstButton.configuration?.baseBackgroundColor = .systemBackground
+        firstButton.configuration?.baseForegroundColor = .black
+        
+        firstButton.setTitle("Jogar", for: .normal)
+        firstButton.titleLabel?.font = UIFont.systemFont(ofSize: 36.0, weight: .thin)
+        firstButton.setTitleColor(.label, for: .normal)
+        
+        firstButton.layer.borderWidth = 1.0
+        firstButton.layer.borderColor = UIColor.systemGray.cgColor
+        firstButton.layer.cornerRadius = 10.0
+        
+        // Target
+        firstButton.addTarget(self, action: #selector(goToFirstScreen), for: .touchUpInside)
+        
+        // Layout automatico
+        firstButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        // Constrains
+        NSLayoutConstraint.activate([
+            firstButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            firstButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
+            firstButton.widthAnchor.constraint(equalToConstant: 300),
+            firstButton.heightAnchor.constraint(equalToConstant: 60)
+        ])
     }
     
     func setupTotalQuestions() {
@@ -124,6 +175,10 @@ class ResultScene: UIViewController {
             
             
         }
+    }
+    
+    @objc func goToFirstScreen() {
+        navigationController?.popToRootViewController(animated: true)
     }
 }
 
