@@ -6,6 +6,7 @@
 //
 
 import Combine
+import Foundation
 
 class RecordController {
     static let shared = RecordController()
@@ -13,7 +14,9 @@ class RecordController {
     private(set) var record: CurrentValueSubject<Int, Never>
     
     private init() {
-        record = CurrentValueSubject(0)
+        record = CurrentValueSubject(
+            (UserDefaults.standard.value(forKey: "highScore") != nil) ? UserDefaults.standard.value(forKey: "highScore") as! Int : 0
+        )
     }
     
     static func updateRecord(newRecord : Int) {
