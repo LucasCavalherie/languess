@@ -7,11 +7,6 @@
 
 import Combine
 
-struct Record {
-    var type: String
-    var record: Int
-}
-
 class RecordController {
     static let shared = RecordController()
     

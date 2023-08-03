@@ -18,6 +18,7 @@
 		7316C8F42A798A39000953E4 /* QuizData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7316C8F32A798A39000953E4 /* QuizData.swift */; };
 		7316C8F62A799383000953E4 /* ResultScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7316C8F52A799383000953E4 /* ResultScene.swift */; };
 		732813982A7AEA30005EEEE2 /* ResultData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732813972A7AEA30005EEEE2 /* ResultData.swift */; };
+		73D8CD2D2A7C573300450672 /* ResultCollectionViewCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D8CD2C2A7C573300450672 /* ResultCollectionViewCells.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		7316C8F32A798A39000953E4 /* QuizData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizData.swift; sourceTree = "<group>"; };
 		7316C8F52A799383000953E4 /* ResultScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultScene.swift; sourceTree = "<group>"; };
 		732813972A7AEA30005EEEE2 /* ResultData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultData.swift; sourceTree = "<group>"; };
+		73D8CD2C2A7C573300450672 /* ResultCollectionViewCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultCollectionViewCells.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +80,7 @@
 				7316C8E62A797604000953E4 /* LaunchScreen.storyboard */,
 				7316C8E92A797604000953E4 /* Info.plist */,
 				7313AC432A7C1FED0071B022 /* UserDefaultObservableObject.swift */,
+				73D8CD2C2A7C573300450672 /* ResultCollectionViewCells.swift */,
 			);
 			path = Languess;
 			sourceTree = "<group>";
@@ -159,6 +162,7 @@
 				7316C8F22A7983A9000953E4 /* Preview.swift in Sources */,
 				732813982A7AEA30005EEEE2 /* ResultData.swift in Sources */,
 				7316C8DC2A797603000953E4 /* AppDelegate.swift in Sources */,
+				73D8CD2D2A7C573300450672 /* ResultCollectionViewCells.swift in Sources */,
 				7316C8F42A798A39000953E4 /* QuizData.swift in Sources */,
 				7316C8DE2A797603000953E4 /* SceneDelegate.swift in Sources */,
 			);

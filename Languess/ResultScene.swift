@@ -22,7 +22,7 @@ class ResultScene: UIViewController {
     
     var resultData: [ResultData] = [
         ResultData(word: "Palavra", correct: true),
-        ResultData(word: "Palavra1", correct: true),
+        ResultData(word: "Palavra1", correct: false),
         ResultData(word: "Palavra2", correct: true),
         ResultData(word: "Palavra3", correct: true),
         ResultData(word: "Palavra3", correct: true),
@@ -30,6 +30,17 @@ class ResultScene: UIViewController {
         ResultData(word: "Palavra3", correct: true),
         ResultData(word: "Palavra3", correct: true),
     ]
+    
+    lazy var collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        var view = UICollectionView(frame: view.frame, collectionViewLayout: layout)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.delegate = self
+        view.dataSource = self
+        view.register(ResultCollectionViewCell.self, forCellWithReuseIdentifier: ResultCollectionViewCell.identifer)
+        return view
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,7 +72,7 @@ class ResultScene: UIViewController {
         firstButton.configuration?.baseBackgroundColor = .systemBackground
         firstButton.configuration?.baseForegroundColor = .black
         
-        firstButton.setTitle("Jogar", for: .normal)
+        firstButton.setTitle("Jogar Novamente", for: .normal)
         firstButton.titleLabel?.font = UIFont.systemFont(ofSize: 36.0, weight: .thin)
         firstButton.setTitleColor(.label, for: .normal)
         
@@ -78,7 +89,7 @@ class ResultScene: UIViewController {
         // Constrains
         NSLayoutConstraint.activate([
             firstButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            firstButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
+            firstButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 75),
             firstButton.widthAnchor.constraint(equalToConstant: 300),
             firstButton.heightAnchor.constraint(equalToConstant: 60)
         ])
@@ -100,7 +111,7 @@ class ResultScene: UIViewController {
         // Constrains
         NSLayoutConstraint.activate([
             totalLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            totalLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            totalLabel.topAnchor.constraint(equalTo: firstButton.bottomAnchor, constant: 50)
         ])
     }
     
@@ -120,7 +131,7 @@ class ResultScene: UIViewController {
         // Constrains
         NSLayoutConstraint.activate([
             correctLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            correctLabel.topAnchor.constraint(equalTo: totalLabel.bottomAnchor, constant: 50)
+            correctLabel.topAnchor.constraint(equalTo: totalLabel.bottomAnchor, constant: 25)
         ])
     }
     
@@ -140,45 +151,53 @@ class ResultScene: UIViewController {
         // Constrains
         NSLayoutConstraint.activate([
             wrongLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            wrongLabel.topAnchor.constraint(equalTo: correctLabel.bottomAnchor, constant: 50)
+            wrongLabel.topAnchor.constraint(equalTo: correctLabel.bottomAnchor, constant: 25)
         ])
     }
     
     func setupAnswers() {
-        var answersButtons: [UIButton] = []
-        for i in 0..<resultData.count {
-            let button = UIButton(type: .system)
-            
-            button.configuration?.baseBackgroundColor = .systemBackground
-            button.configuration?.baseForegroundColor = .black
-            button.setTitle(resultData[i].word, for: .normal)
-            button.titleLabel?.font = UIFont.systemFont(ofSize: 36.0, weight: .thin)
-            button.setTitleColor(.label, for: .normal)
-            button.layer.borderWidth = 1.0
-            button.layer.borderColor = UIColor.systemGray.cgColor
-            button.layer.cornerRadius = 10.0
-            button.translatesAutoresizingMaskIntoConstraints = false
-            view.addSubview(button)
-            answersButtons.append(button)
-            
-            if i == 0 {
-                NSLayoutConstraint.activate([
-                    button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-                    button.topAnchor.constraint(equalTo: wrongLabel.bottomAnchor, constant: 50)
-                ])
-            } else {
-                NSLayoutConstraint.activate([
-                    button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-                    button.topAnchor.constraint(equalTo: answersButtons[i-1].bottomAnchor, constant: 50)
-                ])
-            }
-            
-            
-        }
+        view.addSubview(collectionView)
+        collectionView.topAnchor.constraint(equalTo: wrongLabel.bottomAnchor, constant: 50).isActive = true
+        collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+        collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+        collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
     
     @objc func goToFirstScreen() {
         navigationController?.popToRootViewController(animated: true)
+    }
+    
+}
+
+extension ResultScene: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        resultData.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ResultCollectionViewCell.identifer, for: indexPath) as? ResultCollectionViewCell else { return UICollectionViewCell() }
+        cell.setUpView(text: resultData[indexPath.row].word, correct: resultData[indexPath.row].correct)
+        return cell
+    }
+}
+
+extension ResultScene: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("Apertou a opção na célula \(indexPath.row + 1)")
+    }
+}
+
+extension ResultScene: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        CGSize(width: collectionView.frame.width, height: 50)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        30
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        10
     }
 }
 
