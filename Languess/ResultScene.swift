@@ -13,10 +13,13 @@ class ResultScene: UIViewController {
     let firstButton = UIButton()
     
     var totalLabel = UILabel()
+    var totalTitle = UILabel()
     
+    var correctTitle = UILabel()
     var correctLabel = UILabel()
     var correctCount: Int = 0
     
+    var wrongTitle = UILabel()
     var wrongLabel = UILabel()
     var wrongCount: Int = 0
     
@@ -52,9 +55,19 @@ class ResultScene: UIViewController {
             RecordController.updateRecord(newRecord: correctCount)
         }
         
+        // Add subview
+        //view.addSubview(totalTitle)
+        //view.addSubview(totalLabel)
+        
+        view.addSubview(correctTitle)
+        view.addSubview(correctLabel)
+        
+        view.addSubview(wrongTitle)
+        view.addSubview(wrongLabel)
+        
         
         setupButton()
-        setupTotalQuestions()
+        //setupTotalQuestions()
         setupCorrectQuestions()
         setupWrongQuestions()
         setupAnswers()
@@ -96,62 +109,79 @@ class ResultScene: UIViewController {
     }
     
     func setupTotalQuestions() {
-        // Add subview
-        view.addSubview(totalLabel)
-        
         // Style
-        totalLabel.text = "Total: \(correctCount + wrongCount)"
+        totalTitle.text = "Total"
+        totalTitle.font = UIFont.systemFont(ofSize: 36.0, weight: .thin)
+        totalTitle.textAlignment = .center
+        totalTitle.textColor = .label
+        
+        totalLabel.text = "\(correctCount + wrongCount)"
         totalLabel.font = UIFont.systemFont(ofSize: 36.0, weight: .thin)
         totalLabel.textAlignment = .center
         totalLabel.textColor = .label
         
         // Autolayout
+        totalTitle.translatesAutoresizingMaskIntoConstraints = false
         totalLabel.translatesAutoresizingMaskIntoConstraints = false
         
         // Constrains
         NSLayoutConstraint.activate([
-            totalLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            totalLabel.topAnchor.constraint(equalTo: firstButton.bottomAnchor, constant: 50)
+            totalTitle.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            totalTitle.topAnchor.constraint(equalTo: firstButton.bottomAnchor, constant: 50),
+            totalLabel.centerXAnchor.constraint(equalTo: totalTitle.centerXAnchor),
+            totalLabel.topAnchor.constraint(equalTo: totalTitle.bottomAnchor, constant: 10)
         ])
     }
     
     func setupCorrectQuestions() {
-        // Add subview
-        view.addSubview(correctLabel)
-        
         // Style
-        correctLabel.text = "Acertos: \(correctCount)"
+        correctTitle.text = "Acertos"
+        correctTitle.font = UIFont.systemFont(ofSize: 36.0, weight: .thin)
+        correctTitle.textAlignment = .center
+        correctTitle.textColor = .label
+        
+        correctLabel.text = "\(correctCount)"
         correctLabel.font = UIFont.systemFont(ofSize: 36.0, weight: .thin)
         correctLabel.textAlignment = .center
         correctLabel.textColor = .label
         
         // Autolayout
+        correctTitle.translatesAutoresizingMaskIntoConstraints = false
         correctLabel.translatesAutoresizingMaskIntoConstraints = false
         
         // Constrains
         NSLayoutConstraint.activate([
-            correctLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            correctLabel.topAnchor.constraint(equalTo: totalLabel.bottomAnchor, constant: 25)
+            correctTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            correctTitle.trailingAnchor.constraint(equalTo: wrongLabel.leadingAnchor),
+            correctTitle.topAnchor.constraint(equalTo: firstButton.bottomAnchor, constant: 50),
+            correctLabel.centerXAnchor.constraint(equalTo: correctTitle.centerXAnchor),
+            correctLabel.topAnchor.constraint(equalTo: correctTitle.bottomAnchor, constant: 10)
         ])
     }
     
     func setupWrongQuestions() {
-        // Add subview
-        view.addSubview(wrongLabel)
-        
         // Style
-        wrongLabel.text = "Erros: \(wrongCount)"
+        wrongTitle.text = "Erros"
+        wrongTitle.font = UIFont.systemFont(ofSize: 36.0, weight: .thin)
+        wrongTitle.textAlignment = .center
+        wrongTitle.textColor = .label
+        
+        wrongLabel.text = "\(wrongCount)"
         wrongLabel.font = UIFont.systemFont(ofSize: 36.0, weight: .thin)
         wrongLabel.textAlignment = .center
         wrongLabel.textColor = .label
         
         // Autolayout
+        wrongTitle.translatesAutoresizingMaskIntoConstraints = false
         wrongLabel.translatesAutoresizingMaskIntoConstraints = false
         
         // Constrains
         NSLayoutConstraint.activate([
-            wrongLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            wrongLabel.topAnchor.constraint(equalTo: correctLabel.bottomAnchor, constant: 25)
+            wrongTitle.leadingAnchor.constraint(equalTo: correctLabel.trailingAnchor),
+            wrongTitle.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            wrongTitle.topAnchor.constraint(equalTo: firstButton.bottomAnchor, constant: 50),
+            wrongLabel.centerXAnchor.constraint(equalTo: wrongTitle.centerXAnchor),
+            wrongLabel.topAnchor.constraint(equalTo: wrongTitle.bottomAnchor, constant: 10)
         ])
     }
     
