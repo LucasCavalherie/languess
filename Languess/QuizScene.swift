@@ -7,12 +7,12 @@
 
 import SwiftUI
 import UIKit
-import CoreHaptics
+import AVFoundation
 
 class QuizScene: UIViewController {
     
     var timer: Timer?
-    var countdown: Int = 30
+    var countdown: Int = 10
     var countdownLabel: UILabel!
     var currentQuestionIndex: Int = 0
     var quizData: [QuizData] = []
@@ -23,9 +23,31 @@ class QuizScene: UIViewController {
     var correctQuestions: Int = 0
     var wrongQuestions: Int = 0
     
+    var audioPlayer: AVAudioPlayer?
+
+    func setupAudioPlayer() {
+        guard let audioURL = Bundle.main.url(forResource: "trilhaSonora", withExtension: "mp3") else {
+            print("Arquivo de áudio não encontrado.")
+            return
+        }
+        
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOf: audioURL)
+            audioPlayer?.numberOfLoops = -1
+            audioPlayer?.prepareToPlay()
+            audioPlayer?.play()
+        } catch {
+            print("Erro ao criar o player de áudio: \(error.localizedDescription)")
+        }
+    }
+    
+    
+    
     // Ciclo de vida
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setupAudioPlayer()
         
         quizData = getQuizData()
             
@@ -149,6 +171,7 @@ class QuizScene: UIViewController {
         
         if countdown <= 0 {
             timer?.invalidate()
+            audioPlayer?.pause()
             goToNextScreen()
         }
     }
