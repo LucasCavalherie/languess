@@ -12,7 +12,7 @@ import AVFoundation
 class QuizScene: UIViewController {
     
     var timer: Timer?
-    var countdown: Int = 10
+    var countdown: Int = 30
     var countdownLabel: UILabel!
     var currentQuestionIndex: Int = 0
     var quizData: [QuizData] = []
@@ -108,8 +108,6 @@ class QuizScene: UIViewController {
         for _ in 0..<4 {
             let button = UIButton(type: .system)
             
-            button.configuration?.baseBackgroundColor = .systemBackground
-            button.configuration?.baseForegroundColor = .black
             button.titleLabel?.font = UIFont.systemFont(ofSize: 36.0, weight: .thin)
             button.setTitleColor(.label, for: .normal)
             button.layer.borderWidth = 1.0
