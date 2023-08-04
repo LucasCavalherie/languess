@@ -36,7 +36,7 @@ func getQuizData() -> [QuizData] {
         QuizData(word: "Sonne", correctLanguage: "Alemão", options: ["Espanhol", "Alemão", "Italiano", "Inglês"]),
         QuizData(word: "Árvore", correctLanguage: "Português", options: ["Francês", "Espanhol", "Português", "Inglês"]),
         QuizData(word: "Luna", correctLanguage: "Espanhol", options: ["Espanhol", "Francês", "Italiano", "Inglês"]),
-        QuizData(word: "Cielo", correctLanguage: "Espanhol", options: ["Alemão", "Italiano", "Espanhol", "Português"]),
+        QuizData(word: "Cielo", correctLanguage: "Espanhol", options: ["Alemão", "Francês", "Espanhol", "Português"]),
         QuizData(word: "Maison", correctLanguage: "Francês", options: ["Inglês", "Espanhol", "Francês", "Alemão"]),
         QuizData(word: "Vento", correctLanguage: "Italiano", options: ["Inglês", "Espanhol", "Italiano", "Francês"]),
         QuizData(word: "Sol", correctLanguage: "Português", options: ["Espanhol", "Português", "Italiano", "Francês"]),
@@ -45,7 +45,7 @@ func getQuizData() -> [QuizData] {
         QuizData(word: "Arbre", correctLanguage: "Francês", options: ["Alemão", "Espanhol", "Francês", "Italiano"]),
         QuizData(word: "Ventana", correctLanguage: "Espanhol", options: ["Italiano", "Espanhol", "Alemão", "Francês"]),
         QuizData(word: "Licht", correctLanguage: "Alemão", options: ["Alemão", "Italiano", "Francês", "Espanhol"]),
-        QuizData(word: "Terra", correctLanguage: "Italiano", options: ["Espanhol", "Italiano", "Francês", "Português"]),
+        QuizData(word: "Terra", correctLanguage: "Italiano", options: ["Espanhol", "Italiano", "Francês", "Alemão"]),
     ]
     return quizData
 }

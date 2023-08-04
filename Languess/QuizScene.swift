@@ -13,6 +13,7 @@ class QuizScene: UIViewController {
     
     var timer: Timer?
     var countdown: Int = 30
+    var returnButton: UIButton!
     var countdownLabel: UILabel!
     var currentQuestionIndex: Int = 0
     var quizData: [QuizData] = []
@@ -54,6 +55,7 @@ class QuizScene: UIViewController {
         // Embaralhar as perguntas
         quizData = quizData.shuffled()
         
+        setupReturnButton()
         setupCountdown()
         startCountdown()
         setupTitle()
@@ -65,6 +67,26 @@ class QuizScene: UIViewController {
         
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.isNavigationBarHidden = true
+    }
+    
+    func setupReturnButton() {
+        // Button
+        returnButton = UIButton(type: .system)
+        returnButton.setImage(UIImage(systemName: "chevron.left"), for: .normal)
+        returnButton.imageView?.contentMode = .scaleAspectFit
+        returnButton.tintColor = .label
+        returnButton.titleLabel?.font = UIFont.systemFont(ofSize: 48)
+        returnButton.addTarget(self, action: #selector(goToFirstScreen), for: .touchUpInside)
+                
+                
+        returnButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(returnButton)
+        
+        // Constraints
+        NSLayoutConstraint.activate([
+            returnButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
+            returnButton.centerYAnchor.constraint(equalTo: view.topAnchor, constant: 100)
+        ])
     }
     
     func setupCountdown() {
@@ -145,6 +167,7 @@ class QuizScene: UIViewController {
     }
     
     @objc func goToNextScreen() {
+        audioPlayer?.pause()
         let nextScreen = ResultScene()
         nextScreen.correctCount = correctQuestions
         nextScreen.wrongCount = wrongQuestions
@@ -169,7 +192,6 @@ class QuizScene: UIViewController {
         
         if countdown <= 0 {
             timer?.invalidate()
-            audioPlayer?.pause()
             goToNextScreen()
         }
     }
@@ -228,6 +250,11 @@ class QuizScene: UIViewController {
         } else {
             goToNextScreen()
         }
+    }
+    
+    @objc func goToFirstScreen() {
+        audioPlayer?.pause()
+        navigationController?.popToRootViewController(animated: true)
     }
 
 
