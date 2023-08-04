@@ -53,7 +53,7 @@ class StartScreen: UIViewController {
         // Constrains
         NSLayoutConstraint.activate([
             titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            titleLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -100)
+            titleLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -150)
         ])
     }
     
@@ -110,7 +110,7 @@ class StartScreen: UIViewController {
         // Constrains
         NSLayoutConstraint.activate([
             nextButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            nextButton.topAnchor.constraint(equalTo: recordLabel.bottomAnchor, constant: 200),
+            nextButton.topAnchor.constraint(equalTo: recordLabel.bottomAnchor, constant: 150),
             nextButton.widthAnchor.constraint(equalToConstant: 300),
             nextButton.heightAnchor.constraint(equalToConstant: 60)
         ])

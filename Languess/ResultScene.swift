@@ -41,6 +41,7 @@ class ResultScene: UIViewController {
         view.delegate = self
         view.dataSource = self
         view.register(ResultCollectionViewCell.self, forCellWithReuseIdentifier: ResultCollectionViewCell.identifer)
+        view.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 25, right: 0)
         return view
     }()
     
@@ -92,34 +93,7 @@ class ResultScene: UIViewController {
         // Constrains
         NSLayoutConstraint.activate([
             titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 50)
-        ])
-    }
-    
-    func setupButton() {
-        // Style
-        firstButton.backgroundColor = UIColor.label
-        
-        firstButton.setTitle("Jogar Novamente", for: .normal)
-        firstButton.titleLabel?.font = UIFont.systemFont(ofSize: 36.0, weight: .thin)
-        firstButton.setTitleColor(.systemBackground, for: .normal)
-        
-        firstButton.layer.borderWidth = 1.0
-        firstButton.layer.borderColor = UIColor.systemGray.cgColor
-        firstButton.layer.cornerRadius = 10.0
-        
-        // Target
-        firstButton.addTarget(self, action: #selector(goToFirstScreen), for: .touchUpInside)
-        
-        // Layout automatico
-        firstButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        // Constrains
-        NSLayoutConstraint.activate([
-            firstButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            firstButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -25),
-            firstButton.widthAnchor.constraint(equalToConstant: 300),
-            firstButton.heightAnchor.constraint(equalToConstant: 60)
+            titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 75)
         ])
     }
     
@@ -143,7 +117,7 @@ class ResultScene: UIViewController {
         NSLayoutConstraint.activate([
             correctTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             correctTitle.trailingAnchor.constraint(equalTo: wrongLabel.leadingAnchor),
-            correctTitle.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 50),
+            correctTitle.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 25),
             correctLabel.centerXAnchor.constraint(equalTo: correctTitle.centerXAnchor),
             correctLabel.topAnchor.constraint(equalTo: correctTitle.bottomAnchor, constant: 10)
         ])
@@ -169,17 +143,44 @@ class ResultScene: UIViewController {
         NSLayoutConstraint.activate([
             wrongTitle.leadingAnchor.constraint(equalTo: correctLabel.trailingAnchor),
             wrongTitle.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            wrongTitle.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 50),
+            wrongTitle.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 25),
             wrongLabel.centerXAnchor.constraint(equalTo: wrongTitle.centerXAnchor),
             wrongLabel.topAnchor.constraint(equalTo: wrongTitle.bottomAnchor, constant: 10)
         ])
     }
     
     func setupAnswers() {
-        collectionView.topAnchor.constraint(equalTo: wrongLabel.bottomAnchor, constant: 50).isActive = true
+        collectionView.topAnchor.constraint(equalTo: wrongLabel.bottomAnchor, constant: 25).isActive = true
         collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
         collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
         collectionView.bottomAnchor.constraint(equalTo: firstButton.topAnchor, constant: -25).isActive = true
+    }
+    
+    func setupButton() {
+        // Style
+        firstButton.backgroundColor = UIColor.label
+        
+        firstButton.setTitle("Jogar Novamente", for: .normal)
+        firstButton.titleLabel?.font = UIFont.systemFont(ofSize: 36.0, weight: .thin)
+        firstButton.setTitleColor(.systemBackground, for: .normal)
+        
+        firstButton.layer.borderWidth = 1.0
+        firstButton.layer.borderColor = UIColor.systemGray.cgColor
+        firstButton.layer.cornerRadius = 10.0
+        
+        // Target
+        firstButton.addTarget(self, action: #selector(goToFirstScreen), for: .touchUpInside)
+        
+        // Layout automatico
+        firstButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        // Constrains
+        NSLayoutConstraint.activate([
+            firstButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            firstButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -75),
+            firstButton.widthAnchor.constraint(equalToConstant: 300),
+            firstButton.heightAnchor.constraint(equalToConstant: 60)
+        ])
     }
     
     @objc func goToFirstScreen() {

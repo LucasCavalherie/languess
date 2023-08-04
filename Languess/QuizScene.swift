@@ -48,7 +48,7 @@ class QuizScene: UIViewController {
     func setupCountdown() {
         // Countdown Label
         countdownLabel = UILabel()
-        countdownLabel.text = "30" // Valor inicial do contador
+        countdownLabel.text = "\(countdown)"
         countdownLabel.font = UIFont.systemFont(ofSize: 28, weight: .thin)
         countdownLabel.textAlignment = .center
         countdownLabel.textColor = UIColor.label
