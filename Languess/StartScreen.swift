@@ -11,6 +11,7 @@ import UIKit
 
 class StartScreen: UIViewController {
     
+    let logo = UIImageView(image: UIImage(named: "Logo"))
     let nextButton = UIButton()
     let titleLabel = UILabel()
     let recordTitleLabel = UILabel()
@@ -26,6 +27,7 @@ class StartScreen: UIViewController {
         
         //UserDefaults.standard.set(0, forKey: "highScore")
         
+        setupLogo()
         setupTitle()
         setupRecord()
         setupButton()
@@ -35,6 +37,24 @@ class StartScreen: UIViewController {
         
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.isNavigationBarHidden = true
+    }
+    
+    func setupLogo() {
+        // Add subview
+        logo.frame = CGRect(x: 0, y: 0, width: 200, height: 200)
+        view.addSubview(logo)
+        
+        // Autolayout
+        logo.translatesAutoresizingMaskIntoConstraints = false
+        
+        // Constrains
+        NSLayoutConstraint.activate([
+            logo.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            logo.topAnchor.constraint(equalTo: view.topAnchor, constant: 125),
+            logo.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.4), // Largura
+            logo.heightAnchor.constraint(equalTo: logo.widthAnchor) // Altura igual à largura
+                    
+        ])
     }
     
     func setupTitle() {
@@ -53,7 +73,7 @@ class StartScreen: UIViewController {
         // Constrains
         NSLayoutConstraint.activate([
             titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            titleLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -150)
+            titleLabel.topAnchor.constraint(equalTo: logo.bottomAnchor, constant: 50)
         ])
     }
     
@@ -80,7 +100,7 @@ class StartScreen: UIViewController {
         // Constrains
         NSLayoutConstraint.activate([
             recordTitleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            recordTitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 100),
+            recordTitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 75),
             recordLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             recordLabel.topAnchor.constraint(equalTo: recordTitleLabel.bottomAnchor, constant: 10),
         ])
@@ -110,7 +130,7 @@ class StartScreen: UIViewController {
         // Constrains
         NSLayoutConstraint.activate([
             nextButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            nextButton.topAnchor.constraint(equalTo: recordLabel.bottomAnchor, constant: 150),
+            nextButton.topAnchor.constraint(equalTo: recordLabel.bottomAnchor, constant: 75),
             nextButton.widthAnchor.constraint(equalToConstant: 300),
             nextButton.heightAnchor.constraint(equalToConstant: 60)
         ])
