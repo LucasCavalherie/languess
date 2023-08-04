@@ -12,8 +12,7 @@ class ResultScene: UIViewController {
 
     let firstButton = UIButton()
     
-    var totalLabel = UILabel()
-    var totalTitle = UILabel()
+    var titleLabel = UILabel()
     
     var correctTitle = UILabel()
     var correctLabel = UILabel()
@@ -56,8 +55,11 @@ class ResultScene: UIViewController {
         }
         
         // Add subview
-        //view.addSubview(totalTitle)
-        //view.addSubview(totalLabel)
+        view.addSubview(titleLabel)
+        
+        view.addSubview(collectionView)
+        
+        view.addSubview(firstButton)
         
         view.addSubview(correctTitle)
         view.addSubview(correctLabel)
@@ -66,8 +68,8 @@ class ResultScene: UIViewController {
         view.addSubview(wrongLabel)
         
         
+        setupTotalQuestions()
         setupButton()
-        //setupTotalQuestions()
         setupCorrectQuestions()
         setupWrongQuestions()
         setupAnswers()
@@ -77,17 +79,30 @@ class ResultScene: UIViewController {
         navigationController?.isNavigationBarHidden = true
     }
     
-    func setupButton() {
-        // Subview
-        view.addSubview(firstButton)
-        
+    func setupTotalQuestions() {
         // Style
-        firstButton.configuration?.baseBackgroundColor = .systemBackground
-        firstButton.configuration?.baseForegroundColor = .black
+        titleLabel.text = "Resultados"
+        titleLabel.font = UIFont.systemFont(ofSize: 56.0, weight: .thin)
+        titleLabel.textAlignment = .center
+        titleLabel.textColor = .label
+        
+        // Autolayout
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+
+        // Constrains
+        NSLayoutConstraint.activate([
+            titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 50)
+        ])
+    }
+    
+    func setupButton() {
+        // Style
+        firstButton.backgroundColor = UIColor.label
         
         firstButton.setTitle("Jogar Novamente", for: .normal)
         firstButton.titleLabel?.font = UIFont.systemFont(ofSize: 36.0, weight: .thin)
-        firstButton.setTitleColor(.label, for: .normal)
+        firstButton.setTitleColor(.systemBackground, for: .normal)
         
         firstButton.layer.borderWidth = 1.0
         firstButton.layer.borderColor = UIColor.systemGray.cgColor
@@ -102,34 +117,9 @@ class ResultScene: UIViewController {
         // Constrains
         NSLayoutConstraint.activate([
             firstButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            firstButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 75),
+            firstButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -25),
             firstButton.widthAnchor.constraint(equalToConstant: 300),
             firstButton.heightAnchor.constraint(equalToConstant: 60)
-        ])
-    }
-    
-    func setupTotalQuestions() {
-        // Style
-        totalTitle.text = "Total"
-        totalTitle.font = UIFont.systemFont(ofSize: 36.0, weight: .thin)
-        totalTitle.textAlignment = .center
-        totalTitle.textColor = .label
-        
-        totalLabel.text = "\(correctCount + wrongCount)"
-        totalLabel.font = UIFont.systemFont(ofSize: 36.0, weight: .thin)
-        totalLabel.textAlignment = .center
-        totalLabel.textColor = .label
-        
-        // Autolayout
-        totalTitle.translatesAutoresizingMaskIntoConstraints = false
-        totalLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        // Constrains
-        NSLayoutConstraint.activate([
-            totalTitle.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            totalTitle.topAnchor.constraint(equalTo: firstButton.bottomAnchor, constant: 50),
-            totalLabel.centerXAnchor.constraint(equalTo: totalTitle.centerXAnchor),
-            totalLabel.topAnchor.constraint(equalTo: totalTitle.bottomAnchor, constant: 10)
         ])
     }
     
@@ -153,7 +143,7 @@ class ResultScene: UIViewController {
         NSLayoutConstraint.activate([
             correctTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             correctTitle.trailingAnchor.constraint(equalTo: wrongLabel.leadingAnchor),
-            correctTitle.topAnchor.constraint(equalTo: firstButton.bottomAnchor, constant: 50),
+            correctTitle.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 50),
             correctLabel.centerXAnchor.constraint(equalTo: correctTitle.centerXAnchor),
             correctLabel.topAnchor.constraint(equalTo: correctTitle.bottomAnchor, constant: 10)
         ])
@@ -179,18 +169,17 @@ class ResultScene: UIViewController {
         NSLayoutConstraint.activate([
             wrongTitle.leadingAnchor.constraint(equalTo: correctLabel.trailingAnchor),
             wrongTitle.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            wrongTitle.topAnchor.constraint(equalTo: firstButton.bottomAnchor, constant: 50),
+            wrongTitle.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 50),
             wrongLabel.centerXAnchor.constraint(equalTo: wrongTitle.centerXAnchor),
             wrongLabel.topAnchor.constraint(equalTo: wrongTitle.bottomAnchor, constant: 10)
         ])
     }
     
     func setupAnswers() {
-        view.addSubview(collectionView)
         collectionView.topAnchor.constraint(equalTo: wrongLabel.bottomAnchor, constant: 50).isActive = true
         collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
         collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
-        collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        collectionView.bottomAnchor.constraint(equalTo: firstButton.topAnchor, constant: -25).isActive = true
     }
     
     @objc func goToFirstScreen() {

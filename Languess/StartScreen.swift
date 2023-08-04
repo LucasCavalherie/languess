@@ -13,6 +13,7 @@ class StartScreen: UIViewController {
     
     let nextButton = UIButton()
     let titleLabel = UILabel()
+    let recordTitleLabel = UILabel()
     let recordLabel = UILabel()
     
     private var cancellables = Set<AnyCancellable>()
@@ -58,21 +59,30 @@ class StartScreen: UIViewController {
     
     func setupRecord() {
         // Add subview
+        view.addSubview(recordTitleLabel)
         view.addSubview(recordLabel)
         
         // Style
-        recordLabel.text = "Seu recorde: \(RecordController.shared.record.value)"
-        recordLabel.font = UIFont.systemFont(ofSize: 36.0, weight: .thin)
+        recordTitleLabel.text = "Seu recorde:"
+        recordTitleLabel.font = UIFont.systemFont(ofSize: 36.0, weight: .thin)
+        recordTitleLabel.textAlignment = .center
+        recordTitleLabel.textColor = .label
+        
+        recordLabel.text = "\(RecordController.shared.record.value)"
+        recordLabel.font = UIFont.systemFont(ofSize: 48.0, weight: .thin)
         recordLabel.textAlignment = .center
         recordLabel.textColor = .label
         
         // Autolayout
+        recordTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         recordLabel.translatesAutoresizingMaskIntoConstraints = false
         
         // Constrains
         NSLayoutConstraint.activate([
+            recordTitleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            recordTitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 100),
             recordLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            recordLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 100),
+            recordLabel.topAnchor.constraint(equalTo: recordTitleLabel.bottomAnchor, constant: 10),
         ])
     }
     
@@ -81,12 +91,11 @@ class StartScreen: UIViewController {
         view.addSubview(nextButton)
         
         // Style
-        nextButton.configuration?.baseBackgroundColor = .systemBackground
-        nextButton.configuration?.baseForegroundColor = .black
+        nextButton.backgroundColor = UIColor.label
         
         nextButton.setTitle("Jogar", for: .normal)
         nextButton.titleLabel?.font = UIFont.systemFont(ofSize: 36.0, weight: .thin)
-        nextButton.setTitleColor(.label, for: .normal)
+        nextButton.setTitleColor(.systemBackground, for: .normal)
         
         nextButton.layer.borderWidth = 1.0
         nextButton.layer.borderColor = UIColor.systemGray.cgColor
@@ -114,7 +123,7 @@ class StartScreen: UIViewController {
     }
     
     private func updateRecord(_ newRecord: Int) {
-        recordLabel.text = "Seu recorde: \(newRecord)"
+        recordLabel.text = "\(newRecord)"
     }
         
     private func setupSubscriptions() {
