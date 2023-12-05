@@ -130,7 +130,7 @@ class StartScreen: UIViewController {
         // Constrains
         NSLayoutConstraint.activate([
             nextButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            nextButton.topAnchor.constraint(equalTo: recordLabel.bottomAnchor, constant: 75),
+            nextButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50),
             nextButton.widthAnchor.constraint(equalToConstant: 300),
             nextButton.heightAnchor.constraint(equalToConstant: 60)
         ])

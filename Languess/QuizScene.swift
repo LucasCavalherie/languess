@@ -92,7 +92,7 @@ class QuizScene: UIViewController {
     func setupCountdown() {
         // Countdown Label
         countdownLabel = UILabel()
-        countdownLabel.text = "\(countdown)"
+        countdownLabel.text = "\(countdown)'"
         countdownLabel.font = UIFont.systemFont(ofSize: 28, weight: .thin)
         countdownLabel.textAlignment = .center
         countdownLabel.textColor = UIColor.label
@@ -144,25 +144,25 @@ class QuizScene: UIViewController {
         
         // Constraints
         NSLayoutConstraint.activate([
-            optionButtons[0].centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            optionButtons[0].topAnchor.constraint(equalTo: wordLabel.bottomAnchor, constant: 150),
-            optionButtons[0].widthAnchor.constraint(equalToConstant: 300),
-            optionButtons[0].heightAnchor.constraint(equalToConstant: 60),
-            
-            optionButtons[1].centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            optionButtons[1].topAnchor.constraint(equalTo: optionButtons[0].bottomAnchor, constant: 30),
-            optionButtons[1].widthAnchor.constraint(equalToConstant: 300),
-            optionButtons[1].heightAnchor.constraint(equalToConstant: 60),
+            optionButtons[3].centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            optionButtons[3].bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50),
+            optionButtons[3].widthAnchor.constraint(equalToConstant: 300),
+            optionButtons[3].heightAnchor.constraint(equalToConstant: 60),
             
             optionButtons[2].centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            optionButtons[2].topAnchor.constraint(equalTo: optionButtons[1].bottomAnchor, constant: 30),
+            optionButtons[2].bottomAnchor.constraint(equalTo: optionButtons[3].topAnchor, constant: -30),
             optionButtons[2].widthAnchor.constraint(equalToConstant: 300),
             optionButtons[2].heightAnchor.constraint(equalToConstant: 60),
             
-            optionButtons[3].centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            optionButtons[3].topAnchor.constraint(equalTo: optionButtons[2].bottomAnchor, constant: 30),
-            optionButtons[3].widthAnchor.constraint(equalToConstant: 300),
-            optionButtons[3].heightAnchor.constraint(equalToConstant: 60),
+            optionButtons[1].centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            optionButtons[1].bottomAnchor.constraint(equalTo: optionButtons[2].topAnchor, constant: -30),
+            optionButtons[1].widthAnchor.constraint(equalToConstant: 300),
+            optionButtons[1].heightAnchor.constraint(equalToConstant: 60),
+            
+            optionButtons[0].centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            optionButtons[0].bottomAnchor.constraint(equalTo: optionButtons[1].topAnchor, constant: -30),
+            optionButtons[0].widthAnchor.constraint(equalToConstant: 300),
+            optionButtons[0].heightAnchor.constraint(equalToConstant: 60),
         ])
     }
     
@@ -181,7 +181,7 @@ class QuizScene: UIViewController {
     
     @objc func updateTimer() {
         countdown -= 1
-        countdownLabel.text = "\(countdown)"
+        countdownLabel.text = "\(countdown)'"
         
         if countdown <= 10 {
             countdownLabel.textColor = .red
